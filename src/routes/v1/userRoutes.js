@@ -20,4 +20,15 @@ router.post('/', (req, res) => {
     })
 });
 
+router.put('/', (req, res) => {
+    const updateUserData = req.body;
+    res.status(200).json({ message: ` cập nhật thành công`, data: updateUserData });
+  });
+
+  // DELETE method
+router.delete('/:id', (req, res) => {
+    const userID = req.params.id;
+    res.status(200).json({ message: `User với id: ${userID} xóa thành công` });
+  });
+
 module.exports = router;
