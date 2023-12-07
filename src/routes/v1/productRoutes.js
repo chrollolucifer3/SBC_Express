@@ -23,16 +23,13 @@ router.post('/', (req, res) => {
 
     // PUT method
 router.put('/', (req, res) => {
-    
     const updateProductData = req.body;
-  
     res.status(200).json({ message: ` cập nhật thành công`, data: updateProductData });
   });
 
   // DELETE method
 router.delete('/:id', (req, res) => {
     const productID = req.params.id;
-  
     res.status(200).json({ message: `Product với id: ${productID} xóa thành công` });
   });
 
