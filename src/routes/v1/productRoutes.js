@@ -1,36 +1,19 @@
-const express = require('express')
+const express = require('express');
+const ProductController = require('../../controllers/ProductController');
 const router = express.Router();
 
     //Get method
-router.get('/:id', (req, res) => {
-    let id = req.params.id;
-    res.status(200).json({msg: `Get id: ${id}`})
-})
+router.get('/:id', ProductController.get)
 
-router.get('/test', (req, res) => {
-    const {page, sort} = req.query;
-    res.status(200).json({ msg: `Get query string ${page} ${sort}`})
-})
+router.get('/test', ProductController.get)
 
     //POST method
-router.post('/', (req, res) => {
-    const {id, name} = req.body;
-    res.status(200).json({ 
-        id,
-        name
-    })
-});
+router.post('/', ProductController.create);
 
     // PUT method
-router.put('/', (req, res) => {
-    const updateProductData = req.body;
-    res.status(200).json({ message: ` cập nhật thành công`, data: updateProductData });
-  });
+router.put('/', ProductController.update);
 
   // DELETE method
-router.delete('/:id', (req, res) => {
-    const productID = req.params.id;
-    res.status(200).json({ message: `Product với id: ${productID} xóa thành công` });
-  });
+router.delete('/:id', ProductController.delete);
 
 module.exports = router;

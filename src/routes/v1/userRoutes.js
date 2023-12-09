@@ -1,34 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const UserController = require('../../controllers/UserController');
 
-router.get('/:id', (req, res) => {
-    let id = req.params.id;
-    res.status(200).json({ msg: `Get id ${id}`})
-})
+router.get('/:id', UserController.get);
 
-router.get('/test', (req, res) => {
-    const {page, sort} = req.query;
-    res.status(200).json({ msg: `Get query string ${page} ${sort}`})
-})
+router.get('/test', UserController.get);
 
-router.post('/', (req, res) => {
-    console.log(req.body);
-    const {username, password} = req.body;
-    res.status(200).json({ 
-        username,
-        password
-    })
-});
+router.post('/', UserController.create);
 
-router.put('/', (req, res) => {
-    const updateUserData = req.body;
-    res.status(200).json({ message: ` cập nhật thành công`, data: updateUserData });
-  });
+router.put('/', UserController.update);
 
   // DELETE method
-router.delete('/:id', (req, res) => {
-    const userID = req.params.id;
-    res.status(200).json({ message: `User với id: ${userID} xóa thành công` });
-  });
+router.delete('/:id', UserController.delete);
 
 module.exports = router;
