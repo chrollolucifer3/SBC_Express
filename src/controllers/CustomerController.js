@@ -41,7 +41,7 @@ class CustomerController {
     delete = (req, res, next) => {
         try {
             const customerId = req.params.id;
-            res.status(200).json({msg: ` Xóa thành công customer có id: ${customerId}`})
+            res.status(200).json({msg: ` Xóa thành công khách hàng có id: ${customerId}`})
         } catch (error) {
             
         }
