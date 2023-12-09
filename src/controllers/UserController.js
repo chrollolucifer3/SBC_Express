@@ -49,4 +49,4 @@ class UserController {
     }
 }
 
-module.exports = new UserController();
+module.exports = new UserController;
