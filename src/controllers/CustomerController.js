@@ -1,49 +1,61 @@
+const CustomerService = require('../services/CustomerService')
+
 class CustomerController {
-    get = (req, res, next) => {
+
+    getAll = async (req, res, next) => {
         try {
-            const {page, sort} = req.body;
-            res.status(200).json({msg: `Get query string ${page} ${sort}`})
+            const product = await CustomerService.getAll();
+            res.status(200).json({
+                product
+            })
+            console.log(product);
         } catch (error) {
             throw error;
         }
     }
 
-    get = (req, res, next) => {
+    createCustomer = async (req, res, next) => {
         try {
-            const customerId = req.params.id;
-            res.status(200).json({msg: `Get id ${customerId}`})
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    create = (req, res, next) => {
-        try {
-            const {username, password} = req.body;
-            res.status(200).json({msg:` Tạo thành công`,
-            username,
-            password
-        }) 
+            const {fullname, phone, email, address, dateofbirth, gender} = req.body;
+            let data = {fullname, phone, email, address, dateofbirth, gender};
+            await CustomerService.createCustomer(data);
         } catch (error) {
             throw error;
         }
     } 
 
-    update = (req, res, next) => {
+    updateCustomer = async (req, res, next) => {
         try {
-            const updateCustomerData = req.body;
-            res.status(200).json({msg: ` Cập nhật Customer thành công`, data: updateCustomerData})
+            const {id} = req.params;
+            const {fullname, phone, email, address, dateofbirth, gender} = req.body;
+            let data = {fullname, phone, email, address, dateofbirth, gender};
+            const result = await CustomerService.updateCustomer(id, data);
+            if(result) {
+                res.status(200).json({
+                    msg: "success"
+                }) 
+            } else {
+                res.status(500).json({msg: "fail"})
+            }
         } catch (error) {
             throw error
         }
     }
 
-    delete = (req, res, next) => {
+    deletedeleteCustomer = async (req, res, next) => {
         try {
-            const customerId = req.params.id;
-            res.status(200).json({msg: ` Xóa thành công khách hàng có id: ${customerId}`})
+            const { id } = req.params;
+           const customer = await CustomerService.deleteCustomer(id);
+
+           if(customer) {
+            res.status(200).json({
+                msg: "success"
+            }) 
+        } else {
+            res.status(500).json({msg: "fail"})
+        }
         } catch (error) {
-            
+            throw error;
         }
     }
 }

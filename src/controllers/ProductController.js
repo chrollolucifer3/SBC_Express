@@ -1,51 +1,59 @@
+const ProductService = require('../services/ProductService')
+
 class ProductController {
-    get = (req, res, next) => {
+    
+    createProduct = async (req, res, next) => {
+
         try {
-            const {page, sort} = req.body;
-            res.status(200).json({msg: `Get query string ${page} ${sort}`})
+            const {productname, producer, yearofmanufacture, quantity, price} = req.body;
+            let data = {productname, producer, yearofmanufacture, quantity, price};
+            await ProductService.createProduct(data);
         } catch (error) {
             throw error;
         }
     }
 
-    get = (req, res, next) => {
+    getAll = async (req, res, next) => {
+        
         try {
-            const productId = req.params.id;
-            res.status(200).json({msg: `Get id ${productId}`})
+            const products = await ProductService.getAll();
+            res.status(200).json({
+                products
+            })    
         } catch (error) {
             throw error;
         }
     }
 
-    create = (req, res, next) => {
+    updateProduct = async (req, res, next) => {
         try {
-            const {productId, productName} = req.body;
-            res.status(200).json({msg:` Tạo thành công`,
-            productId,
-            productName
-        }) 
+            const {productname, producer, yearofmanufacture, quantity, price} = req.body;
+            let data = {productname, producer, yearofmanufacture, quantity, price};
+            const { id } = req.params;
+            const result = await ProductService.updateProduct(id, data);
+            if(result) {
+                res.status(200).json({
+                    msg: 'success'
+                })
+            } else {
+                res.status(500).json({
+                    msg: 'fail'
+                })
+            }
         } catch (error) {
             throw error;
         }
-    } 
-
-    update = (req, res, next) => {
-        try {
-            const updateProductData = req.body;
-            res.status(200).json({msg: ` Cập nhật Product thành công`, data: updateProductData})
-        } catch (error) {
-            throw error
-        }
     }
 
-    delete = (req, res, next) => {
+    deleteProduct = async(req, res, next) => {
         try {
-            const productId = req.params.id;
-            res.status(200).json({msg: ` Xóa thành công sản phẩm có id: ${productId}`})
-        } catch (error) {
+            const {id} = req.params;
+            await ProductService.deleteProduct(id);
             
+        } catch (error) {
+            throw error;
         }
     }
 }
 
-module.exports = new ProductController;
+module.exports = new ProductController();

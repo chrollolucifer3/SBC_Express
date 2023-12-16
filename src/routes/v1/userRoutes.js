@@ -1,16 +1,17 @@
 const express = require('express');
+const UserController = require('../../controllers/usercontroller');
 const router = express.Router();
-const UserController = require('../../controllers/UserController');
 
-router.get('/:id', UserController.get);
 
-router.get('/test', UserController.get);
+router.get('/', UserController.get);
 
 router.post('/', UserController.create);
 
-router.put('/', UserController.update);
+router.put('/:id', UserController.update);
+
+router.delete('/:id', UserController.delete)
 
   // DELETE method
-router.delete('/:id', UserController.delete);
+// router.delete('/:id', UserController.delete);
 
 module.exports = router;
