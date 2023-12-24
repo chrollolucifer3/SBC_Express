@@ -8,7 +8,7 @@ require('dotenv').config()
 
 const db = require('./configs/mongodb/index');
 
-//Kết nối với mongoDB atla
+//Kết nối với mongoDB 
 db.connect();
 
 app.get('/', (req, res) => {
